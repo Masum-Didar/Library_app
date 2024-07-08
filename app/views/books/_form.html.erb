@@ -1,0 +1,43 @@
+<%= form_with(model: book) do |form| %>
+
+  <div class="mb-3">
+    <%= form.label :title, style: "display: block", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+    <div style="color: red">
+      <% if book.errors.include?(:title) %>
+        <% book.errors.full_messages_for(:title).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :image, style: "display: block", class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+    <div style="color: red">
+      <% if book.errors.include?(:image) %>
+        <% book.errors.full_messages_for(:image).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="mb-3">
+    <%= form.label :authors, style: "display: block", class: "form-label" %>
+    <%#= form.collection_select :author_ids, Author.all, :id, :name, {}, { multiple: true, class: "form-control" } %>
+    <%= select_tag "book[author_ids][]", options_for_select(Author.all.map { |author| [author.name, author.id] }, @book.author_ids), { include_blank: 'Select authors', multiple: true, class: 'custom-chosen form-control' } %>
+
+    <div style="color: red">
+      <% if book.errors.include?(:author_ids) %>
+        <% book.errors.full_messages_for(:author_ids).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Save", class: "btn btn-success btn-block" %>
+  </div>
+<% end %>

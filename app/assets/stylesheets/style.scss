@@ -1,0 +1,19 @@
+.header{
+    background: var(--table-header-color);
+    /*color: var(--primary-text-bacground-color);*/
+}
+.padding_infor_info {
+    padding: 20px 20px;
+}
+.table.projects tbody td {
+    padding: 15px 15px;
+}
+
+.table-responsive-sm {
+    overflow: auto;
+}
+
+.index-image{
+    height: 40px;
+    width: 40px;
+}

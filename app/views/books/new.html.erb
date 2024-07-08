@@ -1,0 +1,9 @@
+<h1>New Book</h1>
+<%= render "remote_modal", title: "New Book" do %>
+  <%= render "form", book: @book %>
+<% end %>
+<br>
+
+<div>
+  <%= link_to "Back to Book", books_path %>
+</div>

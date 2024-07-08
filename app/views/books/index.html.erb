@@ -1,0 +1,44 @@
+<p style="color: green"><%= notice %></p>
+<h1>Books</h1>
+
+<div id="book" data-controller="lazy-load">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Image</th>
+      <th scope="col">Title</th>
+      <th scope="col">Authors</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @books.each do |book| %>
+      <tr scope="row">
+        <td style="height: 100px">
+          <% if book.image.present? %>
+            <% if book.image.url.ends_with?('.jpg', '.jpeg', '.png', '.gif') %>
+              <%= image_tag book.image.url, alt: 'User Image', class: 'index-image', style: 'height: 100px', data: { lazy_load_target: "image", src: book.image.url } %>
+            <% else %>
+              No Image
+            <% end %>
+          <% else %>
+            No File
+          <% end %>
+        </td>
+        <td style="width: 50%"><%= book.title %></td>
+        <td><%= book.authors.map(&:name).join(", ") %></td>
+
+        <td style="width: 25%">
+          <%= link_to "Show", book, class: "btn btn-secondary" %>
+          <%= link_to "Edit", edit_book_path(book), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
+          <%= link_to "Delete", book, class: "btn btn-danger", method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  <%= link_to "New book", new_book_path, class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+</p>

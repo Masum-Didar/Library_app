@@ -1,0 +1,9 @@
+<h1>New author</h1>
+<%= render "remote_modal", title: "New Author" do %>
+  <%= render "form", author: @author %>
+<% end %>
+<br>
+
+<div>
+  <%= link_to "Back to authors", authors_path %>
+</div>

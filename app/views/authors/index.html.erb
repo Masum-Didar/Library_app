@@ -1,0 +1,41 @@
+<p style="color: green"><%= notice %></p>
+<h1>Authors</h1>
+
+<div id="author">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @authors.each do |author| %>
+      <tr scope="row">
+        <td style="width: 25%">
+          <%= author.name %>
+        </td>
+        <td style="width: 50%">
+          <%= author.description %>
+        </td>
+        <td style="width: 25%">
+          <%= link_to "Show", author, class: "btn btn-secondary" %>
+          <%#= link_to "Delete", author, class: "btn btn-danger", data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
+          <%#= link_to "Edit", edit_author_path(author), class: "btn btn-success" %>
+          <%= link_to "Edit", edit_author_path(author), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
+          <%= link_to "Delete", author, class: "btn btn-danger", method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
+          <%#= link_to author_path(author), data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' do %>
+<!--            <i class="fa fa-trash"></i>-->
+          <%# end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  <%= link_to "New Author", new_author_path, class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+
+</p>

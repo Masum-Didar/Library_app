@@ -1,0 +1,8 @@
+<%= render "remote_modal", title: "Edit Book" do %>
+  <%= render "form", book: @book %>
+<% end %>
+
+<div>
+  <%= link_to "Show this Book", @book %> |
+  <%= link_to "Back to Book", books_path %>
+</div>
