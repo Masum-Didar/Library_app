@@ -2,7 +2,20 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
   def index
+    # Initial load without books to trigger lazy loading
+    @books = []
+    p "////////@books []//////////"
+    p @books
+    p "////////@books []//////////"
+  end
+
+  def index_lazy
+    # sleep(2)
+    # Load books for the lazy loading frame
     @books = Book.all
+    p "////////@books//////////"
+    p @books.pluck(:title)
+    p "////////@books//////////"
   end
 
   def show

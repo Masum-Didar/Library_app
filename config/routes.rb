@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "books#index"
   resources :authors
-  resources :books
+  resources :books do
+    collection do
+      get :index_lazy
+    end
+  end
 
 end
