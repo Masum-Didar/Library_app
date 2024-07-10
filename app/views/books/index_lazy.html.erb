@@ -1,5 +1,6 @@
+<!-- app/views/books/index_lazy.html.erb -->
 <%= turbo_frame_tag :books_index_lazy do %>
-  Count: <%= @books.count %>
+  Count: <%= @books.total_count %>
   <table class="table">
     <thead>
     <tr>
@@ -10,7 +11,12 @@
     </tr>
     </thead>
     <tbody>
-      <%= render @books %>
+    <%= render partial: 'books/book', collection: @books, as: :book %>
     </tbody>
   </table>
+  <% if @books.next_page %>
+    <%= turbo_frame_tag :pagination do %>
+      <%= link_to 'Load More', index_lazy_books_path(page: @books.next_page), data: { turbo_frame: 'books_index_lazy' }, class: 'btn btn-primary' %>
+    <% end %>
+  <% end %>
 <% end %>

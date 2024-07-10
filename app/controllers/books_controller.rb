@@ -4,15 +4,18 @@ class BooksController < ApplicationController
   def index
     # Initial load without books to trigger lazy loading
     @books = []
-    p "////////@books []//////////"
-    p @books
-    p "////////@books []//////////"
   end
 
   def index_lazy
-    # sleep(2)
-    # Load books for the lazy loading frame
-    @books = Book.all
+
+    @books = Book.page(params[:page]).per(5)
+
+    respond_to do |format|
+      format.html # if you want to render HTML
+      format.turbo_stream
+    end
+
+    # @books = Book.page(params[:page])
     p "////////@books//////////"
     p @books.pluck(:title)
     p "////////@books//////////"

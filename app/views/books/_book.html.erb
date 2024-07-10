@@ -1,24 +1,21 @@
-<div id="book" data-controller="lazy-load">
-    <% @books.each do |book| %>
-      <tr data-controller="lazy-load" data-lazy-load-target="image" data-src="<%= book.image.url %>">
-        <td>
-          <% if book.image.present? %>
-            <% if book.image.url.ends_with?('.jpg', '.jpeg', '.png', '.gif') %>
-              <%= image_tag book.image.url, alt: 'Book Image', class: 'index-image', style: 'height: 20; width: 20', data: { lazy_load_target: "image", src: book.image.url } %>
-            <% else %>
-              No Image
-            <% end %>
-          <% else %>
-            No File
-          <% end %>
-        </td>
-        <td style="width: 50%"><%= book.title %></td>
-        <td><%= book.authors.map(&:name).join(", ") %></td>
-        <td style="width: 25%">
-          <%= link_to "Show", book, class: "btn btn-secondary" %>
-          <%= link_to "Edit", edit_book_path(book), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
-          <%= link_to "Delete", book, class: "btn btn-danger", method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
-        </td>
-      </tr>
+<!-- app/views/books/_book.html.erb -->
+<tr data-controller="infinite-scroll" data-infinite-scroll-next-page="image" data-src="<%= book.image.url %>">
+  <td>
+    <% if book.image.present? %>
+      <% if book.image.url.ends_with?('.jpg', '.jpeg', '.png', '.gif') %>
+        <%= image_tag book.image.url, alt: 'Book Image', class: 'index-image', style: 'height: 20px; width: 20px', data: { lazy_load_target: "image", src: book.image.url } %>
+      <% else %>
+        No Image
+      <% end %>
+    <% else %>
+      No File
     <% end %>
-</div>
+  </td>
+  <td style="width: 50%"><%= book.title %></td>
+  <td><%= book.authors.map(&:name).join(", ") %></td>
+  <td style="width: 25%">
+    <%= link_to "Show", book, class: "btn btn-secondary" %>
+    <%= link_to "Edit", edit_book_path(book), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
+    <%= link_to "Delete", book, class: "btn btn-danger", method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
+  </td>
+</tr>
