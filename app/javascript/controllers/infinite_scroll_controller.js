@@ -35,7 +35,20 @@ export default class extends Controller {
                 headers: { Accept: "text/vnd.turbo-stream.html" }
             })
                 .then(response => response.text())
-                .then(html => Turbo.renderStreamMessage(html))
+                .then(html => {
+                    Turbo.renderStreamMessage(html)
+                    this.updateNextPage()
+                })
+        }
+    }
+
+    updateNextPage() {
+        const nextPageLink = document.querySelector("[data-next-page-link]")
+        if (nextPageLink) {
+            this.data.set("next-page", nextPageLink.getAttribute("href"))
+            nextPageLink.remove()
+        } else {
+            this.data.delete("next-page")
         }
     }
 }

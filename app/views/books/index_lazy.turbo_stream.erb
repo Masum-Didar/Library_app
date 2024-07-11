@@ -1,13 +1,11 @@
-<!-- app/views/books/index_lazy.turbo_stream.erb -->
 <%= turbo_stream.append :books_index_lazy do %>
   <table>
     <tbody>
     <%= render partial: 'books/book', collection: @books, as: :book %>
     </tbody>
-    <% if @books.next_page %>
-      <%= turbo_frame_tag :pagination do %>
-        <%= link_to 'Load More', index_lazy_books_path(page: @books.next_page), data: { turbo_frame: 'books_index_lazy' }, class: 'btn btn-primary text-center' %>
-      <% end %>
-    <% end %>
   </table>
+<% end %>
+
+<% if @books.next_page %>
+  <%= link_to 'Load More', index_lazy_books_path(page: @books.next_page), data: { next_page_link: true }, style: 'display: none;' %>
 <% end %>
