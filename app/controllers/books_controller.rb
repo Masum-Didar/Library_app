@@ -1,24 +1,23 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[ show edit update destroy ]
+  before_action :set_book, only: %i[show edit update destroy]
 
   def index
-    # Initial load without books to trigger lazy loading
-    @books = []
+    @books = Book.order(created_at: :desc).page(1).per(5)
+    p "////////@books index//////////"
+    p @books.pluck(:title)
+    p "////////@books index//////////"
   end
 
   def index_lazy
-
-    @books = Book.page(params[:page]).per(5)
+    @books = Book.order(created_at: :desc).page(params[:page]).per(5)
+    p "////////@books index_lazy//////////"
+    p @books.pluck(:title)
+    p "////////@books index_lazy//////////"
 
     respond_to do |format|
       format.html # if you want to render HTML
       format.turbo_stream
     end
-
-    # @books = Book.page(params[:page])
-    p "////////@books//////////"
-    p @books.pluck(:title)
-    p "////////@books//////////"
   end
 
   def show
@@ -32,7 +31,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     respond_to do |format|
-      if @book.save!
+      if @book.save
         format.html { redirect_to books_url(@book), notice: "Book was successfully created." }
         format.json { render :show, status: :created, location: @book }
       else
@@ -68,7 +67,6 @@ class BooksController < ApplicationController
     end
   end
 
-
   private
 
   def set_book
@@ -78,6 +76,4 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :image, author_ids: [])
   end
-
 end
-
