@@ -14,9 +14,9 @@
     <%= render partial: 'books/book', collection: @books, as: :book %>
     </tbody>
   </table>
-  <% if @books.next_page %>
-    <%= turbo_frame_tag :pagination do %>
-      <%= link_to 'Load More', index_lazy_books_path(page: @books.next_page), data: { turbo_frame: 'books_index_lazy' }, class: 'btn btn-primary' %>
-    <% end %>
-  <% end %>
+  <%# if @books.next_page %>
+    <%#= turbo_frame_tag :pagination do %>
+      <%#= link_to 'Load More', index_lazy_books_path(page: @books.next_page), data: { turbo_frame: 'books_index_lazy' }, class: 'btn btn-primary' %>
+    <%# end %>
+  <%# end %>
 <% end %>

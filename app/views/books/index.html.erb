@@ -6,9 +6,9 @@
   </p>
 </div>
 
-<div class="w-full" data-controller="infinite-scroll" data-infinite-scroll-next-page="<%= index_lazy_books_path(page: 2) %>">
+<div class="w-full" data-controller="infinite-scroll" data-infinite-scroll-next-page="<%= index_lazy_books_path(page: @books.next_page) %>" data-infinite-scroll-first-page="<%= index_lazy_books_path(page: 1) %>">
   <p class="text-xl font-bold">Lazy loading with Hotwire and Turbo Frames</p>
-  <%= turbo_frame_tag :books_index_lazy, src: index_lazy_books_path(page: 1), loading: :lazy, id: "books_index_lazy" do %>
+  <%= turbo_frame_tag :books_index_lazy, src: index_lazy_books_path, loading: :lazy, id: "books_index_lazy" do %>
     <!-- Content will be loaded lazily -->
   <% end %>
   <div id="infinite-scroll-anchor" data-infinite-scroll-target="anchor"></div>
