@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "wishlist_button_#{@book.id}" do %>
+  <%= link_to "🤍", book_wishlists_path(@book), method: :post, class: "btn btn-outline-danger" %>
+<% end %>

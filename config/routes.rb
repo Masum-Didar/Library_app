@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     collection do
       get :index_lazy
     end
+    resources :wishlists, only: [:create, :destroy]
   end
+  # resources :wishlists, only: [:create, :destroy]
 
 end
