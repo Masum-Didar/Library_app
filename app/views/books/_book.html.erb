@@ -16,9 +16,9 @@
     <%= link_to "Edit", edit_book_path(book), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
     <%= link_to "Delete", book, class: "btn btn-danger", method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
     <% if book.wishlists.exists? %>
-      <%= link_to "❤️", book_wishlist_path(book, book.wishlists.first), method: :delete, class: "btn btn-danger", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button" } %>
+      <%= link_to "❤️", book_wishlist_path(book, book.wishlists.first), method: :delete, class: "btn btn-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button" } %>
     <% else %>
-      <%= link_to "🤍", book_wishlists_path(book), method: :post, class: "btn btn-outline-danger", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button" } %>
+      <%= link_to "🤍", book_wishlists_path(book), method: :post, class: "btn btn-outline-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button" } %>
     <% end %>
   </td>
 </tr>
