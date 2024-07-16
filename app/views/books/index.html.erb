@@ -8,6 +8,7 @@
 
 <div class="w-full" data-controller="infinite-scroll" data-infinite-scroll-next-page="<%= books_path(page: @books.next_page) %>" data-infinite-scroll-first-page="<%= books_path(page: 1) %>">
   <p class="text-xl font-bold">Lazy loading with Hotwire and Turbo Frames</p>
+  Count: <%= @books.total_count %>
   <%= turbo_frame_tag :books_index_lazy, src: books_path, loading: :lazy, id: "books_index_lazy" do %>
     <!-- Content will be loaded lazily -->
   <% end %>

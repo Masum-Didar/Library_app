@@ -2,6 +2,6 @@
   <%= render partial: 'books/books_list', locals: { books: @books } %>
 <% end %>
 
-<% if @books.next_page %>
-  <%= link_to 'Load More', books_path(page: @books.next_page), data: { next_page_link: true }, style: 'display: none;' %>
-<% end %>
+<%# if @books.next_page %>
+  <%#= link_to 'Load More', books_path(page: @books.next_page), data: { next_page_link: true }, style: 'display: none;' %>
+<%# end %>

@@ -10,15 +10,30 @@
       No File
     <% end %>
   </td>
-  <td style="width: 50%"><%= book.title %></td>
+  <td style="width: 50%">
+    <%= book.title %><br>
+    <div data-controller="rating" data-book-id="<%= book.id %>">
+      <%= form_with(model: [book, Rating.new], remote: true, data: { turbo_frame: "ratings" }) do |form| %>
+        <div class="star-rating" data-action="click->rating#submitRating">
+          <% (1..5).reverse_each do |i| %>
+            <input type="radio" id="star<%= i %>-<%= book.id %>" name="rating[value]" value="<%= i %>" />
+            <label for="star<%= i %>-<%= book.id %>" title="<%= i %> stars">★</label>
+          <% end %>
+        </div>
+      <% end %>
+      <div id="ratings">
+        <%= render book.ratings %>
+      </div>
+    </div>
+  </td>
   <td><%= book.authors.map(&:name).join(", ") %></td>
   <td style="width: 25%" id="<%= dom_id(book, :wishlist_button) %>">
     <%= link_to "Edit", edit_book_path(book), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
     <%= link_to "Delete", book, class: "btn btn-danger", method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
     <% if book.wishlists.exists? %>
-      <%= link_to "❤️", book_wishlist_path(book, book.wishlists.first), method: :delete, class: "btn btn-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button" } %>
+      <%= link_to "❤️", book_wishlist_path(book, book.wishlists.first), method: :delete, class: "btn btn-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button", method: "delete", book_id: book.id, wishlist_id: book.wishlists.first.id } %>
     <% else %>
-      <%= link_to "🤍", book_wishlists_path(book), method: :post, class: "btn btn-outline-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button" } %>
+      <%= link_to "🤍", book_wishlists_path(book), method: :post, class: "btn btn-outline-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button", method: "post", book_id: book.id } %>
     <% end %>
   </td>
 </tr>

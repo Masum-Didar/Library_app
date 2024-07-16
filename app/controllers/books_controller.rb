@@ -9,19 +9,6 @@ class BooksController < ApplicationController
     end
   end
 
-
-  # def index
-  #   @books = Book.order(created_at: :desc).page(1).per(15)
-  # end
-
-  # def index_lazy
-  #   @books = Book.order(created_at: :desc).page(params[:page]).per(15)
-  #   respond_to do |format|
-  #     format.html # if you want to render HTML
-  #     format.turbo_stream
-  #   end
-  # end
-
   def show
   end
 

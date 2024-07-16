@@ -14,6 +14,8 @@
  *= require_self
  */
 @import "bootstrap";
+@import "style";
+@import 'star_rating';
 :root {
   --theme-color: #205824;
   --secondary-color: #b9d039;
