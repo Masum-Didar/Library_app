@@ -1,0 +1,19 @@
+Count: <%= @books.total_count %>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Image</th>
+    <th scope="col">Title</th>
+    <th scope="col">Authors</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= render partial: 'books/book', collection: @books, as: :book %>
+  </tbody>
+</table>
+<% if @books.next_page %>
+  <%= turbo_frame_tag :pagination do %>
+    <%= link_to 'Load More', books_path(page: @books.next_page), data: { turbo_frame: 'books_index_lazy' }, class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

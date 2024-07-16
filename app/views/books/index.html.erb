@@ -2,13 +2,13 @@
   <h1>Books</h1>
   <p>
     <%= link_to "Authors", authors_path, class: "btn btn-success"%>
-    <%= link_to "New book", new_book_path, class: "btn btn-primary", data: { turbo_frame: "remote_modal" }%>
+    <%= link_to "New book", new_book_path, class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
   </p>
 </div>
 
-<div class="w-full" data-controller="infinite-scroll" data-infinite-scroll-next-page="<%= index_lazy_books_path(page: @books.next_page) %>" data-infinite-scroll-first-page="<%= index_lazy_books_path(page: 1) %>">
+<div class="w-full" data-controller="infinite-scroll" data-infinite-scroll-next-page="<%= books_path(page: @books.next_page) %>" data-infinite-scroll-first-page="<%= books_path(page: 1) %>">
   <p class="text-xl font-bold">Lazy loading with Hotwire and Turbo Frames</p>
-  <%= turbo_frame_tag :books_index_lazy, src: index_lazy_books_path, loading: :lazy, id: "books_index_lazy" do %>
+  <%= turbo_frame_tag :books_index_lazy, src: books_path, loading: :lazy, id: "books_index_lazy" do %>
     <!-- Content will be loaded lazily -->
   <% end %>
   <div id="infinite-scroll-anchor" data-infinite-scroll-target="anchor"></div>
