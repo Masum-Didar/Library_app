@@ -2,23 +2,25 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
 
   def index
-    @books = Book.order(created_at: :desc).page(1).per(5)
-    p "////////@books index//////////"
-    p @books.pluck(:title)
-    p "////////@books index//////////"
-  end
-
-  def index_lazy
-    @books = Book.order(created_at: :desc).page(params[:page]).per(5)
-    p "////////@books index_lazy//////////"
-    p @books.pluck(:title)
-    p "////////@books index_lazy//////////"
-
+    @books = Book.order(created_at: :desc).page(params[:page]).per(10)
     respond_to do |format|
-      format.html # if you want to render HTML
+      format.html
       format.turbo_stream
     end
   end
+
+
+  # def index
+  #   @books = Book.order(created_at: :desc).page(1).per(15)
+  # end
+
+  # def index_lazy
+  #   @books = Book.order(created_at: :desc).page(params[:page]).per(15)
+  #   respond_to do |format|
+  #     format.html # if you want to render HTML
+  #     format.turbo_stream
+  #   end
+  # end
 
   def show
   end
@@ -32,7 +34,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to books_url(@book), notice: "Book was successfully created." }
+        format.html { redirect_to books_url, notice: "Book was successfully created." }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,7 +50,7 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to books_url(@book), notice: "Book was successfully updated." }
+        format.html { redirect_to books_url, notice: "Book was successfully updated." }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit, status: :unprocessable_entity }
