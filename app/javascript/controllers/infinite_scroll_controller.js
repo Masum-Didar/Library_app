@@ -4,7 +4,22 @@ export default class extends Controller {
     static targets = ["anchor"]
 
     connect() {
-        this.observe()
+        this.retryCount = 0
+        this.maxRetries = 5
+        this.retryDelay = 500 // milliseconds
+
+        this.initializeObserver()
+    }
+
+    initializeObserver() {
+        if (this.hasAnchorTarget) {
+            this.observe()
+        } else if (this.retryCount < this.maxRetries) {
+            this.retryCount++
+            setTimeout(() => this.initializeObserver(), this.retryDelay)
+        } else {
+            console.error('Failed to find the anchor target after multiple attempts')
+        }
     }
 
     observe() {
@@ -17,14 +32,15 @@ export default class extends Controller {
                 })
             })
             this.observer.observe(this.anchorTarget)
+        } else {
+            console.error('Anchor target is missing')
         }
     }
 
     loadMore() {
         let nextPage = this.data.get("next-page")
-        console.log(nextPage)
+        console.log('Next page URL:', nextPage)
 
-        // If nextPage is null, load the first page
         if (!nextPage) {
             nextPage = this.data.get("first-page")
             this.data.set("next-page", nextPage)
