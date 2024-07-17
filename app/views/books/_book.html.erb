@@ -28,15 +28,15 @@
   </td>
   <td><%= book.authors.map(&:name).join(", ") %></td>
   <td class="d-flex">
-    <div style="width: 25%" id="<%= dom_id(book, :wishlist_button) %>">
+    <div style="width: 25%; margin-right: 5px;" id="<%= dom_id(book, :wishlist_button) %>">
       <% if book.wishlists.exists? %>
         <%= link_to "❤️", book_wishlist_path(book, book.wishlists.first), method: :delete, class: "btn btn-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button", method: "delete", book_id: book.id, wishlist_id: book.wishlists.first.id } %>
       <% else %>
         <%= link_to "🤍", book_wishlists_path(book), method: :post, class: "btn btn-outline-success", data: { controller: "wishlist", action: "wishlist#toggleWishlist", wishlist_target: "button", method: "post", book_id: book.id } %>
       <% end %>
     </div>
-    <div>
-      <%= link_to "Edit", edit_book_path(book), class: "btn btn-success btn-block", data: { turbo_frame: "remote_modal" } %>
+    <div class="d-flex">
+      <%= link_to "Edit", edit_book_path(book), class: "btn btn-success btn-block", style: "margin-right: 5px;", data: { turbo_frame: "remote_modal" } %>
       <%= link_to "Delete", book, class: "btn btn-danger", method: :delete, data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } %>
     </div>
   </td>
