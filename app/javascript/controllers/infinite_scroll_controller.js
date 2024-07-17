@@ -17,9 +17,10 @@ export default class extends Controller {
         } else if (this.retryCount < this.maxRetries) {
             this.retryCount++
             setTimeout(() => this.initializeObserver(), this.retryDelay)
-        } else {
-            console.error('Failed to find the anchor target after multiple attempts')
         }
+        // else {
+        //     console.error('Failed to find the anchor target after multiple attempts')
+        // }
     }
 
     observe() {
