@@ -1,0 +1,24 @@
+<% if defined?(book) && book.present? %>
+  <% if book.ratings.exists? %>
+    <% rating = book.ratings.first %>
+    <%= form_with model: [book, rating], url: book_rating_path(book, rating), remote: true, data: { controller: "rating", action: "ajax:success->rating#updateRating" } do |f| %>
+      <%= f.hidden_field :value, value: rating.value || 0, id: dom_id(rating, :value), data: { rating_target: "value" } %>
+      <% (1..5).each do |star| %>
+        <a href="#" data-action="click->rating#setRating" data-value="<%= star %>">
+          <span class="<%= star <= (rating.value || 0) ? 'star-filled' : 'star-empty' %>">&#9733;</span>
+        </a>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= form_with model: [book, book.ratings.build], url: book_ratings_path(book), remote: true, data: { controller: "rating", action: "ajax:success->rating#createRating" } do |f| %>
+      <%= f.hidden_field :value, value: 0, id: dom_id(book, :new_rating_value), data: { rating_target: "value" } %>
+      <% (1..5).each do |star| %>
+        <a href="#" data-action="click->rating#setRating" data-value="<%= star %>">
+          <span class="star-empty">&#9733;</span>
+        </a>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>Book not found.</p>
+<% end %>

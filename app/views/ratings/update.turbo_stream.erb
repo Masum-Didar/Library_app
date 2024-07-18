@@ -1,0 +1,5 @@
+<%= turbo_stream.replace dom_id(@book, :rating_form) do %>
+  <div id="<%= dom_id(@book, :rating_form) %>">
+    <%= render 'books/rating_form', book: @book %>
+  </div>
+<% end %>

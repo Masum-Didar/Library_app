@@ -9,9 +9,6 @@ Rails.application.routes.draw do
   root "books#index"
   resources :authors
   resources :books do
-    collection do
-      get :index_lazy
-    end
     resources :wishlists, only: [:create, :destroy]
     resources :ratings, only: [:create, :update]
   end
