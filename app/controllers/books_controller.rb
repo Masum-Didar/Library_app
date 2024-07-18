@@ -5,7 +5,7 @@ class BooksController < ApplicationController
     @books = Book.order(created_at: :desc).page(params[:page]).per(10)
     respond_to do |format|
       format.html
-      format.turbo_stream unless  flash[:redirected_from] == 'create' || 'update'
+      format.turbo_stream unless  flash[:redirected_from] == 'create' ||  flash[:redirected_from] == 'update'
     end
   end
 
