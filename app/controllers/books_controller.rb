@@ -5,7 +5,7 @@ class BooksController < ApplicationController
     @books = Book.order(created_at: :desc).page(params[:page]).per(10)
     respond_to do |format|
       format.html
-      format.turbo_stream unless  flash[:redirected_from] == 'create' ||  flash[:redirected_from] == 'update'
+      format.turbo_stream unless  flash[:redirected_from] == 'create' ||  flash[:redirected_from] == 'update' ||  flash[:redirected_from] == 'destroy'
     end
   end
 
@@ -51,8 +51,8 @@ class BooksController < ApplicationController
 
   def destroy
     @book.destroy!
-
     respond_to do |format|
+      flash[:redirected_from] = 'destroy'
       format.html { redirect_to books_url, notice: "Books was successfully destroyed." }
       format.json { head :no_content }
     end
