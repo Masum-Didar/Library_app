@@ -5,7 +5,7 @@ class BooksController < ApplicationController
     @books = Book.order(created_at: :desc).page(params[:page]).per(10)
     respond_to do |format|
       format.html
-      format.turbo_stream
+      format.turbo_stream unless  flash[:redirected_from] == 'create' || 'update'
     end
   end
 
@@ -21,6 +21,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
+        flash[:redirected_from] = 'create'
         format.html { redirect_to books_url, notice: "Book was successfully created." }
         format.json { render :show, status: :created, location: @book }
       else
@@ -37,6 +38,7 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
+        flash[:redirected_from] = 'update'
         format.html { redirect_to books_url, notice: "Book was successfully updated." }
         format.json { render :show, status: :ok, location: @book }
       else
