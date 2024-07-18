@@ -2,7 +2,8 @@ class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
 
   def index
-    @books = Book.order(created_at: :desc).page(params[:page]).per(10)
+    #@books = Book.order(created_at: :desc).page(params[:page]).per(10)
+    @books = Book.includes(:ratings).order(created_at: :desc).page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.turbo_stream

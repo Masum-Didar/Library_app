@@ -8,6 +8,7 @@ export default class extends Controller {
     }
 
     hideBeforeRender(event) {
+        console.log("hideBeforeRender", this.isOpen())
         if (this.isOpen()) {
             event.preventDefault()
             this.element.addEventListener('hidden.bs.modal', event.detail.resume)

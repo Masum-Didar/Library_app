@@ -13,6 +13,6 @@ Rails.application.routes.draw do
       get :index_lazy
     end
     resources :wishlists, only: [:create, :destroy]
-    resources :ratings, only: :create
+    resources :ratings, only: [:create, :update]
   end
 end

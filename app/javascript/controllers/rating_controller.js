@@ -2,35 +2,25 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["star"]
+    static targets = ["value"]
 
     connect() {
         console.log("Connected: Rating Controller")
-        this.element.addEventListener("turbo:submit-end", this.handleSubmit.bind(this))
     }
 
-    disconnect() {
-        console.log("Disconnected: Rating Controller")
-        this.element.removeEventListener("turbo:submit-end", this.handleSubmit.bind(this))
-    }
-
-    submitRating(event) {
-        event.preventDefault()
-        const form = event.currentTarget.closest("form")
-        form.requestSubmit()
-    }
-
-    handleSubmit(event) {
-        const { success, fetchResponse } = event.detail
-        if (success) {
-            console.log("success")
-            fetchResponse.responseText.then(html => {
-                const ratingsDiv = this.element.querySelector("#ratings")
-                ratingsDiv.innerHTML = html
-            })
+    selectRating(event) {
+        console.log("selectRating triggered", event.target.value);
+        const ratingValue = parseInt(event.target.value, 10);
+        console.log("Rating Value:", ratingValue);
+        // this.valueTarget.value = ratingValue;  // Set the value in the hidden field
+        const form = this.element.closest("form");
+        const form2 = document.querySelector("#rating-form")
+        console.log("form", form2)
+        if (form2) {
+            console.log("Form found:", form2);
+            form2.requestSubmit();
         } else {
-            console.log("There was an error submitting the rating.")
-            alert("There was an error submitting the rating.")
+            console.error("Form element not found.");
         }
     }
 }

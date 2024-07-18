@@ -13,17 +13,16 @@
   <td style="width: 50%">
     <%= book.title %><br>
     <div data-controller="rating" data-book-id="<%= book.id %>">
-      <%= form_with(model: [book, Rating.new], remote: true, data: { turbo_frame: "ratings" }) do |form| %>
-        <div class="star-rating" data-action="click->rating#submitRating">
+      <%= form_with(model: [book, Rating.new], remote: true, data: { turbo_frame: "ratings" }, id: "rating-form") do |form| %>
+        <div class="star-rating" data-action="click->rating#selectRating">
+          rating: <%= book.ratings.count %>
           <% (1..5).reverse_each do |i| %>
-            <input type="radio" id="star<%= i %>-<%= book.id %>" name="rating[value]" value="<%= i %>" />
+            <input type="radio" id="star<%= i %>-<%= book.id %>" name="rating[rating]" value="<%= i %>" data-value="<%= "#{i},#{book.id}" %>" />
+            <input type="hidden" id="data<%= i %>-<%= book.id %>" name="rating[rating]" value="<%= i %>" data-value="<%= "#{i},#{book.id}" %>" />
             <label for="star<%= i %>-<%= book.id %>" title="<%= i %> stars">★</label>
           <% end %>
         </div>
       <% end %>
-      <div id="ratings">
-        <%= render book.ratings %>
-      </div>
     </div>
   </td>
   <td><%= book.authors.map(&:name).join(", ") %></td>
